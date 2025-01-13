@@ -30,7 +30,7 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
 
         int numberOfReports = 0;
 
-        if(rootEmployee.getDirectReports() == null || rootEmployee.getDirectReports().isEmpty())
+        if(isDirectReportsEmptyOrNull(rootEmployee))
             return generateReportingStructure(rootEmployee, numberOfReports);
 
         ArrayList<Employee> directReportees = new ArrayList<>(rootEmployee.getDirectReports());
@@ -47,7 +47,7 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
 
                 Employee directReporteeEmployeeFullInfo = employeeService.read(directReporteeEmployee.getEmployeeId());
 
-                if(directReporteeEmployeeFullInfo.getDirectReports() != null && !directReporteeEmployeeFullInfo.getDirectReports().isEmpty())
+                if(!isDirectReportsEmptyOrNull(directReporteeEmployeeFullInfo))
                     nestedReportees.addAll(directReporteeEmployeeFullInfo.getDirectReports());
             }
 
@@ -62,6 +62,12 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
 
 
         return generateReportingStructure(rootEmployee, numberOfReports);
+    }
+
+    private Boolean isDirectReportsEmptyOrNull(Employee employee){
+        if(employee.getDirectReports() == null || employee.getDirectReports().isEmpty())
+            return true;
+        else return false;
     }
 
     private ReportingStructure generateReportingStructure(Employee employee, Integer reportCounter){
