@@ -65,9 +65,7 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
     }
 
     private Boolean isDirectReportsEmptyOrNull(Employee employee){
-        if(employee.getDirectReports() == null || employee.getDirectReports().isEmpty())
-            return true;
-        else return false;
+        return employee.getDirectReports() == null || employee.getDirectReports().isEmpty();
     }
 
     private ReportingStructure generateReportingStructure(Employee employee, Integer reportCounter){
@@ -76,10 +74,6 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
         reportingStructure.setEmployee(employee.getEmployeeId());
 
         return reportingStructure;
-    }
-
-    private Boolean doesEmployeeContainReportees(Employee employee){
-        return null != employee.getDirectReports() && !employee.getDirectReports().isEmpty();
     }
 
 }
