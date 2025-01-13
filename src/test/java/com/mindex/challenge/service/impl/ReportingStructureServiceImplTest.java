@@ -36,10 +36,22 @@ public class ReportingStructureServiceImplTest {
     }
 
     @Test
-    public void testReportingStructure(){
+    public void testReportingStructureRootEmployee(){
         ReportingStructure testReportingStructure = new ReportingStructure();
         testReportingStructure.setEmployee("16a596ae-edd3-4847-99fe-c4518e82c86f");
         testReportingStructure.setNumberOfReports(4);
+
+        ReportingStructure createdReportingStructure = restTemplate.getForEntity(reportingStructureUrl, ReportingStructure.class, testReportingStructure.getEmployee()).getBody();
+
+        assertNotNull(createdReportingStructure.getEmployee());
+        assertReportingStructureEquivalence(createdReportingStructure, testReportingStructure);
+    }
+
+    @Test
+    public void testReportingStructure0Reportees(){
+        ReportingStructure testReportingStructure = new ReportingStructure();
+        testReportingStructure.setEmployee("b7839309-3348-463b-a7e3-5de1c168beb3");
+        testReportingStructure.setNumberOfReports(0);
 
         ReportingStructure createdReportingStructure = restTemplate.getForEntity(reportingStructureUrl, ReportingStructure.class, testReportingStructure.getEmployee()).getBody();
 

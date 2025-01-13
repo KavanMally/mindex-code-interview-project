@@ -30,12 +30,11 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
 
         int numberOfReports = 0;
 
-        ArrayList<Employee> directReportees = new ArrayList<>(rootEmployee.getDirectReports());
-        ArrayList<Employee> nestedReportees = new ArrayList<>();
-
-
         if(rootEmployee.getDirectReports() == null || rootEmployee.getDirectReports().isEmpty())
             return generateReportingStructure(rootEmployee, numberOfReports);
+
+        ArrayList<Employee> directReportees = new ArrayList<>(rootEmployee.getDirectReports());
+        ArrayList<Employee> nestedReportees = new ArrayList<>();
 
 
         while(!directReportees.isEmpty()){
